@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+
+    <title></title>
+    <style media="screen">
+      .card{ background: #e1f5fe}
+      .services{border: 22px outset rgba(28,110,164,0.78);
+border-radius: 20px 20px 20px 20px; padding-left: 10px}
+.title{background:#1C6EA4; opacity: 0.78; display: block;}
+#generer{display: none}
+.obj{margin-bottom: 10px}
+    </style>
+  </head>
+  <body>
+
+    <div class="container-fluid">
+      <div class="row">
+
+        <div class="col-7">
+
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="description-tab" onclick="tab('description')" href="#description" role="tab" aria-controls="description" aria-selected="true">Description des données</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="vikor-tab" onclick="tab('vikor')" href="#vikor" role="tab" aria-controls="vikor" aria-selected="false">Vikor</a>
+  </li>
+
+</ul>
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+
+<form>
+  <div class="form-group row">
+     <label for="nombre" class="col-sm-10 col-form-label">Nombre des services Iot</label>
+     <div class="col-sm-2">
+       <input type="number" class="form-control text-center" id="nombre" value="1">
+     </div>
+   </div>
+   <div class="form-group row">
+      <label for="nbr" class="col-sm-10 col-form-label">Nombre des QoS</label>
+      <div class="col-sm-2">
+        <input type="number"  class="form-control text-center" id="nqos" value="2" onchange="choix(this.value)">
+      </div>
+    </div>
+    <div class="form-group row" id="qos">
+
+    </div>
+    <button class="btn btn-primary btn-block" type="button" id="genere" onclick="generer()" >Générer</button>
+
+</form>
+
+
+<hr>
+<div class="imp text-center" onclick="">
+  <h4>Importer des données existantes</h4>
+
+</div>
+
+<hr>
+<form>
+  <div class="form-group">
+    <label for="exampleFormControlFile1">Choisissez votre fichier</label>
+    <input type="file" class="form-control-file" id="exampleFormControlFile1">
+  </div>
+</form>
+
+    </div>
+    <div class="tab-pane fade" id="vikor" role="tabpanel" aria-labelledby="vikor-tab">...</div>
+  </div>
+
+
+
+        </div>
+
+
+
+        <div class="col-5 ">
+        <div class=" services">
+          <!-- 9999 of 9 (wider) -->
+
+        </div>
+
+        <div class="matrice">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <td>Iot</td>
+                <td>QoS</td>
+                <td>min</td>
+                <td>max</td>
+              </tr>
+            </thead>
+            <tbody class="mat">
+
+            </tbody>
+          </table>
+        </div>
+        </div>
+
+      </div>
+        </div>
+
+  </body>
+
+  <script type="text/javascript">
+  const casual = require("casual");
+
+  var nbr=parseInt(document.getElementById('nqos').value);
+
+
+function generer(){
+  var qos=[],min=[],max=[],iot={},iots=[];
+
+  for (var i = 0; i < 3; i++) {
+  for (var j = 0; j < nbr ; j++) {
+    qos.push(document.getElementById('abr'+j).value);
+    min.push(document.getElementById('min'+j).value);
+    max.push(document.getElementById('max'+j).value);
+    iot[qos[j]]= casual.integer(from = min[j], to = max[j]);
+  }
+  iots[i]=iot;
+  console.log(iot);
+  iot={}
+
+  }
+
+  console.log(iots);
+
+
+}
+
+
+function choix(nbr) {
+
+let div='';
+  for (var i = 0; i < nbr; i++) {
+
+div +='<div class="col-2 obj"><input id="abr'+i+'" type="text" class="form-control" placeholder="abréviation"></div><div class="col-sm-6"><input id="desc'+i+'" type="text" class="form-control" placeholder="description"></div><div class="col-sm-2"><input id="min'+i+'" type="text" class="form-control" placeholder="min"></div><div class="col-sm-2"><input id="max'+i+'" type="text" class="form-control" placeholder="max"></div>'
+
+  }
+
+  document.getElementById('qos').innerHTML= div;
+  document.getElementById('genere').style.display="block";
+
+}
+choix(nbr)
+
+function tab(el){
+let ul = document.getElementById(el+'-tab') ,div = document.getElementById(el);
+if (document.querySelector('.nav-link.active')) document.querySelector('.nav-link.active').classList.remove('active');
+if (document.querySelector('.tab-pane.show')) {
+document.querySelector('.tab-pane.show').classList.remove('active');
+document.querySelector('.tab-pane.show').classList.remove('show');
+}
+ul.classList.add('active');
+div.classList.add('show');
+div.classList.add('active');
+}
+
+
+  </script>
+</html>

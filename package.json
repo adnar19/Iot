@@ -1,0 +1,18 @@
+{
+  "name": "Iot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^4.4.1",
+    "casual": "^1.6.2",
+    "font-awesome": "^4.7.0",
+    "sweetalert2": "^9.7.2"
+  },
+  "devDependencies": {}
+}
